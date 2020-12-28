@@ -1,9 +1,8 @@
 import math
-import copy
 
-board = {1:'x', 2:'o', 3:'x',
-         4:'o', 5:' ', 6:'o',
-         7:' ', 8:'x', 9:'x'}
+board = {1:'o', 2:'o', 3:'x',
+         4:'o', 5:' ', 6:'x',
+         7:' ', 8:'x', 9:' '}
 
 def print_board(board):
     print(board[1] + ' | ' + board[2] + ' | ' + board[3])
@@ -99,5 +98,3 @@ def minimax(board, depth, is_max, is_first):
                 min_eval = min(min_eval, eval)
                 board[pos] = ' '
         return min_eval, None
-
-print(minimax(copy.deepcopy(board), 0, True, True))

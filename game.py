@@ -1,5 +1,6 @@
 import copy
 import minimax
+import conditions
 
 def print_board(board):
     print(board[1] + ' | ' + board[2] + ' | ' + board[3])
@@ -8,42 +9,6 @@ def print_board(board):
     print('--+---+--')
     print(board[7] + ' | ' + board[8] + ' | ' + board[9])
     print('\n\n\n')
-
-
-def is_winner(board, turn):
-    for i in range(3):
-        if board[1 + (i*3)] == board[2 + (i*3)] == board[3 + (i*3)] != ' ':  # horizontal
-            print(f'{turn} won')
-            return True
-
-        elif board[1 + i] == board[4 + i] == board[7 + i] != ' ':  # vertical
-            print(f'{turn} won')
-            return True
-
-        elif board[7] == board[5] == board[3] != ' ':  # diagonal
-            print(f'{turn} won')
-            return True
-
-        elif board[1] == board[5] == board[9] != ' ':  # diagonal
-            print(f'{turn} won')
-            return True
-
-    else:
-        return False
-
-
-def is_tie(board):
-    tied = True
-    for i in range(1, 10):
-        if board[i] == ' ':
-            tied = False
-    if tied:
-        print('it\'s a tie.')
-        return True
-
-    else:
-        return False
-
 
 def player_play(board):
     while True:
@@ -84,8 +49,8 @@ def main():
             else:
                 board[minimax.minimax(copy.deepcopy(board), 0, True, True)[1]] = current_player
 
-            tie = is_tie(board)
-            won = is_winner(board, current_player)
+            tie = conditions.is_tie(board, True)
+            won = conditions.is_winner(board, current_player, True)
 
             if current_player == player:
                 current_player = cpu

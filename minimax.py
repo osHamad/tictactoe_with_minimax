@@ -1,47 +1,5 @@
 import math
-
-board = {1:'o', 2:'o', 3:'x',
-         4:'o', 5:' ', 6:'x',
-         7:' ', 8:'x', 9:' '}
-
-def print_board(board):
-    print(board[1] + ' | ' + board[2] + ' | ' + board[3])
-    print('--+---+--')
-    print(board[4] + ' | ' + board[5] + ' | ' + board[6])
-    print('--+---+--')
-    print(board[7] + ' | ' + board[8] + ' | ' + board[9])
-    print('\n\n\n')
-
-
-# board = {1:'x', 2:'o', 3:'x',
-#          4:'o', 5:' ', 6:'o',
-#          7:' ', 8:'x', 9:'x'}
-
-def is_winner(board):
-    for i in range(3):
-        if board[1 + (i*3)] == board[2 + (i*3)] == board[3 + (i*3)] != ' ':  # horizontal
-            return True
-        elif board[1 + i] == board[4 + i] == board[7 + i] != ' ':  # vertical
-            return True
-        elif board[7] == board[5] == board[3] != ' ':  # diagonal
-            return True
-        elif board[1] == board[5] == board[9] != ' ':  # diagonal
-            return True
-
-    return False
-
-def is_tie(board):
-    tied = True
-    for i in range(9):
-        if board[i + 1] == ' ':
-            tied = False
-    if tied:
-        return True
-    else:
-        return False
-
-
-
+import conditions
 
 def board_eval(board):
     for i in range(3):
@@ -67,10 +25,11 @@ def board_eval(board):
     else:
         return 'tie'
 
-scores = {'tie':0, 'o':10, 'x':-10}
 
 def minimax(board, depth, is_max, is_first):
-    if is_winner(board) or is_tie(board):
+    scores = {'tie':0, 'o':10, 'x':-10}
+
+    if conditions.is_winner(board, None, False) or conditions.is_tie(board, False):
         return scores[board_eval(board)] - depth, None
 
     if is_max:
